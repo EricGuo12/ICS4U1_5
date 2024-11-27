@@ -1,9 +1,11 @@
 import "./HomeView.css";
-import "./src/Components";
-import Header from "../src/Componets/Header";
-import Hero from "../src/Componets/Footer";
-import Footer from "../src/Componets/Hero";
+import "../Components/Header.jsx";
+import "../Components/Hero.jsx";
+import "../Components/Footer.jsx";
 
+import Header from "../Components/Header";  // Corrected import path
+import Hero from "../Components/Hero";  // Corrected import path
+import Footer from "../Components/Footer";  // Corrected import path
 
 function HomeView() {
   return (

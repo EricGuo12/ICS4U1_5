@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
-import "./HomeView.css";
+// import "./HomeView.css";
 
-function HomeView() {
+function Header() {
   return (
     <div className="hero">
       <div className="overlay"></div>
@@ -15,4 +14,4 @@ function HomeView() {
   )
 }
 
-export default HomeView; 
+export default Header; 
