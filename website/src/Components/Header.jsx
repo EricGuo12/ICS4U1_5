@@ -1,17 +1,23 @@
-// import "./HomeView.css";
+import { Link } from "react-router-dom";
+import "./Header.css";
+import netCafeLogo from "../assets/netcafelogo2.png"; // Adjust path as needed
 
 function Header() {
   return (
-    <div className="hero">
-      <div className="overlay"></div>
-      <header>
-        <div className="buttons">
-          <Link to={`/register`} className="button">Register</Link>
-          <Link to={`/login`} className="button">Login</Link>
-        </div>
-      </header>
-    </div>
-  )
+    <nav>
+      <img src={netCafeLogo} alt="Net Cafe Logo" className="image1" />
+
+      <div className="nav-items">
+        <p className="logo">NET CAFE</p>
+        <button>
+        <Link to="/register" className="btn-link">Register</Link> 
+        </button>
+        <button>
+        <Link to="/login" className="btn-link">Login</Link> 
+        </button>
+      </div>
+    </nav>
+  );
 }
 
-export default Header; 
+export default Header;

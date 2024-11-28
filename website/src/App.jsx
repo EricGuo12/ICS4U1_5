@@ -1,4 +1,4 @@
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomeView from "./views/HomeView";
 // import RegisterView from "../src/views/RegisterView";
 // import LoginView from "../src/views/LoginView";

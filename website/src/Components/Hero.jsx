@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import "./Hero.css";
+
 function Hero() {
     return (
       <div className="hero">
