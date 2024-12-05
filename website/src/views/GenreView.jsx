@@ -4,11 +4,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./GenreView.css";
 
 function GenreView() {
-  const [movies, setMovies] = useState([]);
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const navigate = useNavigate();
+
   const genreNames = {
     28: "Action",
     10751: "Family",
@@ -21,41 +23,40 @@ function GenreView() {
     53: "Thriller",
     27: "Horror",
   };
+
   const genreName = genreNames[id];
 
   useEffect(() => {
-    if (id === null) return;
+    if (!id) return;
 
-    async function getMovies() {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/discover/movie?api_key=${
-          import.meta.env.VITE_TMDB_KEY
-        }&with_genres=${id}&page=${page}`
-      );
-      console.log(response);
+    const fetchMovies = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/discover/movie?api_key=${
+            import.meta.env.VITE_TMDB_KEY
+          }&with_genres=${id}&page=${page}`
+        );
+        setMovies(response.data.results);
+        setTotalPages(response.data.total_pages);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+    };
 
-      setMovies(response.data.results);
-      setTotalPages(response.data.total_pages);
-    }
-
-    getMovies();
+    fetchMovies();
   }, [id, page]);
 
-  function nextPage() {
-    if (page < totalPages) {
-      setPage(page + 1);
+  const handlePageChange = (direction) => {
+    if (direction === "next" && page < totalPages) {
+      setPage((prevPage) => prevPage + 1);
+    } else if (direction === "prev" && page > 1) {
+      setPage((prevPage) => prevPage - 1);
     }
-  }
+  };
 
-  function previousPage() {
-    if (page != 1) {
-      setPage(page - 1);
-    }
-  }
-
-  function loadMovie(id) {
-    navigate(`/movie/details/${id}`);
-  }
+  const loadMovie = (movieId) => {
+    navigate(`/movies/details/${movieId}`);
+  };
 
   return (
     <div className="genre-list-container">
@@ -66,33 +67,42 @@ function GenreView() {
           <div
             key={movie.id}
             className="movie-item"
-            onClick={() => {
-              loadMovie(movie.id);
-            }}
+            onClick={() => loadMovie(movie.id)}
           >
             <img
               src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
               alt={movie.title}
               className="movie-poster"
             />
-            <h className="movie-title">{movie.title}</h>
+            <h3 className="movie-title">{movie.title}</h3>
           </div>
         ))}
       </div>
-      {page < totalPages && (
+
+      {totalPages > 1 && (
         <div className="genre-buttons">
-          <button className="page-button" onClick={previousPage}>
+          <button
+            className="page-button"
+            onClick={() => handlePageChange("prev")}
+            disabled={page === 1}
+          >
             Previous Page
           </button>
-          <button className="page-button" onClick={nextPage}>
+          <button
+            className="page-button"
+            onClick={() => handlePageChange("next")}
+            disabled={page === totalPages}
+          >
             Next Page
           </button>
         </div>
       )}
+
       <p className="page">
-        Page: {page}/{totalPages}
+        Page: {page} / {totalPages}
       </p>
     </div>
   );
 }
+
 export default GenreView;
