@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
-import netCafeLogo from "../assets/netcafelogo2.png"; // Adjust path as needed
+import netCafeLogo from "../assets/netcafelogo2.png";
 
 function Header() {
   return (
@@ -10,10 +10,14 @@ function Header() {
       <div className="nav-items">
         <p className="logo">NET CAFE</p>
         <button>
-        <Link to="/register" className="btn-link">Register</Link> 
+          <Link to="/register" className="btn-link">
+            <a href="/">register</a>
+          </Link>
         </button>
         <button>
-        <Link to="/login" className="btn-link">Login</Link> 
+          <Link to="/login" className="btn-link">
+            <a href="/">login</a>
+          </Link>
         </button>
       </div>
     </nav>

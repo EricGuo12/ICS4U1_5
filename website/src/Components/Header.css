@@ -206,7 +206,7 @@ button:hover {
 }
 
 .footer {
-  background-image: url(clouds.jpeg);
+  background-image: url('../assets/clouds.jpeg');
   padding: 3cqw
 }
 
